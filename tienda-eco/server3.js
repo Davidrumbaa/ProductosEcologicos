@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require("express");
 const dayjs = require("dayjs");
 // const fs = require('fs/promises'); <-- ¡Pronto dejaremos de usar esto!
