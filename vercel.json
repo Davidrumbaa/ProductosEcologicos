@@ -2,14 +2,26 @@
   "version": 2,
   "builds": [
     {
-      "src": "./tienda-eco/server.js",
+      "src": "tienda-eco/server.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "tienda-eco/public/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "./tienda-eco/server.js"
+      "src": "/factura(.*)",
+      "dest": "tienda-eco/server.js"
+    },
+    {
+      "src": "/(.*\\.(css|js|html|ico|png|jpg))",
+      "dest": "tienda-eco/public/$1"
+    },
+    {
+      "src": "/",
+      "dest": "tienda-eco/public/index.html"
     }
   ]
 }
