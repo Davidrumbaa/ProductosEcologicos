@@ -22,13 +22,6 @@ mongoose
   )
   .catch((err) => console.error("🔴 Error al conectar a MongoDB:", err));
 
-mongoose
-  .connect(MONGODB_URI)
-  .then(() =>
-    console.log("🟢 Conectado exitosamente a la Base de Datos MongoDB"),
-  )
-  .catch((err) => console.error("🔴 Error al conectar a MongoDB:", err));
-
 // ... (El resto de tu código sigue igual por ahora) ...
 
 // ==========================================
@@ -147,6 +140,11 @@ app.post("/factura", (req, res) => {
 // ==========================================
 // 4. Iniciar el Servidor Web
 // ==========================================
+
+// Al final de tu server.js
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor Express encendido en el puerto ${PORT}...`);
+    console.log(`🚀 Servidor Express encendido en el puerto ${PORT}...`);
 });
+
+// NUEVO: Exportamos la app para que Vercel pueda usarla en modo Serverless
+module.exports = app;
