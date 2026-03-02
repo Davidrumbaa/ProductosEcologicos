@@ -1,16 +1,34 @@
 const express = require("express");
 const dayjs = require("dayjs");
-const fs = require("fs/promises");
+// const fs = require('fs/promises'); <-- ¡Pronto dejaremos de usar esto!
+const mongoose = require("mongoose"); // NUEVO
 
 const app = express();
 const PORT = 3000;
 
-// ==========================================
-// ¡NUEVO!: Middleware indispensable para POST
-// ==========================================
-// Esto le dice a Express: "Si te envían un JSON oculto en el Body, tradúcelo para que yo pueda leerlo en req.body"
 app.use(express.json());
 app.use(express.static("public"));
+
+// ==========================================
+// NUEVO: Conexión a la Base de Datos MongoDB
+// ==========================================
+// Aquí iría la "Cadena de conexión" (URI) de tu base de datos
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() =>
+    console.log("🟢 Conectado exitosamente a MongoDB Atlas (La Nube)"),
+  )
+  .catch((err) => console.error("🔴 Error al conectar a MongoDB:", err));
+
+mongoose
+  .connect(MONGODB_URI)
+  .then(() =>
+    console.log("🟢 Conectado exitosamente a la Base de Datos MongoDB"),
+  )
+  .catch((err) => console.error("🔴 Error al conectar a MongoDB:", err));
+
+// ... (El resto de tu código sigue igual por ahora) ...
+
 // ==========================================
 // 1. Configuración Fija
 // ==========================================
@@ -128,7 +146,5 @@ app.post("/factura", (req, res) => {
 // 4. Iniciar el Servidor Web
 // ==========================================
 app.listen(PORT, () => {
-  console.log(
-    `🚀 Servidor Express encendido y a la escucha en el puerto ${PORT}...`,
-  );
+  console.log(`🚀 Servidor Express encendido en el puerto ${PORT}...`);
 });
